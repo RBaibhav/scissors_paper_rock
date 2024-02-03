@@ -13,7 +13,7 @@ const computerChoice = getComputerChoice();
 
 
 function game(playerChoice, computerChoice) {
-    let playerSelection = playerChoice.toLowerCase();
+    let playerSelection = playerChoice.toLowerCase();  // converts the playerChoice to toLowerCase 
 
     if (playerSelection === "paper" && computerChoice === "rock") {
         console.log("You win! paper chatches the rock")
