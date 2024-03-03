@@ -35,38 +35,54 @@ function playRound(playerChoice, computerChoice) {
     return -1;
 }
 
-
-function playGame() {
-    let playerScore = 0;
     let computerScore = 0;
+    let playerScore = 0;
+
+function playGame(result) {
 // Will take prompt and calucalte the score for 5 games 
-    for (let i = 0; i < 5; i++) {
 
-        let computerChoice = getComputerChoice();
-        let playerChoice = prompt("Enter rock, paper or scissors");
-        console.log("you chose : ", playerChoice)
-        console.log("computer chose : ", computerChoice)
-
-        let result = playRound(playerChoice, computerChoice);
-        console.log(result)
         if (result === "win") {
             playerScore += 1;
         } else if (result === "lose") {
             computerScore += 1;
         } else if (result === "draw") { }
-        else {
-            alert("Enter correct prompt")
-        }
-    }
+
     // whill decide who won
-    if (playerScore > computerScore) {
-        console.log("You Win!!")
-    } else if (playerScore === computerScore) {
-        console.log("It's a draw");
-    } else {
-        console.log("You lose")
+    if (playerScore > computerScore && playerScore > 2) {
+        return "You Win!!";
+    } else if (playerScore === computerScore && playerScore == 5) {
+        return "It's a draw";
+    } else if (computerScore > playerScore && computerScore > 2) {
+        return "You lose";
     }
 }
 
-playGame();
 
+const buttons = document.querySelectorAll('button');
+
+console.log(buttons)
+
+buttons.forEach( (button) => {
+
+    let count = 0;
+
+    button.addEventListener('click', () => {
+        let buttonText = button.textContent;
+        console.log(buttonText);
+        let computer = getComputerChoice();
+        console.log(computer);
+        let answerOfCurrentGame = playRound(buttonText, computer);
+
+        let result = playGame(answerOfCurrentGame); 
+        let outputDiv = document.getElementById('result');
+        outputDiv.textContent = "Current Result : " + answerOfCurrentGame;
+        console.log(count)
+        
+        count++;
+        
+        if (count == 5) {
+            let finalAnswer = document.getElementById('finalResult');
+            finalAnswer.textContent = "Final Result : " + result;        
+        }
+    })
+})
